@@ -15,13 +15,12 @@ class notifier::skyper (
     require              => Ini_setting['enable_reports'],
   }
 
-  file { "${settings::confdir}/slack.yaml":
+  file { "${settings::confdir}/skyper.yaml":
     ensure  => present,
     owner   => 'pe-puppet',
     group   => 'pe-puppet',
     mode    => '0644',
-    content => template('reportslack/slack.yaml.erb'),
-    require => Package['slack-notifier'],
+    content => template('notifier/slacker.yaml.erb'),
   }
   include notifier::service
   Class['notifier::skyper'] ~> Class['notifier::service']
