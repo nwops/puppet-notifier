@@ -11,8 +11,7 @@ class notifier::telegramer (
     section              => 'master',
     setting              => 'reports',
     subsetting           => 'telegramer',
-    subsetting_separator => ',',
-    require              => Ini_setting['enable_reports'],
+    subsetting_separator => ','
   }
 
   file { "${settings::confdir}/telegramer.yaml":

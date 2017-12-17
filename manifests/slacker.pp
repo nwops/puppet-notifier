@@ -14,8 +14,7 @@ class notifier::slacker (
     section              => 'master',
     setting              => 'reports',
     subsetting           => 'slacker',
-    subsetting_separator => ',',
-    require              => Ini_setting['enable_reports'],
+    subsetting_separator => ','
   }
 
   file { "${settings::confdir}/slacker.yaml":

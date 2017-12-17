@@ -11,8 +11,7 @@ class notifier::skyper (
     section              => 'master',
     setting              => 'reports',
     subsetting           => 'slack',
-    subsetting_separator => ',',
-    require              => Ini_setting['enable_reports'],
+    subsetting_separator => ','
   }
 
   file { "${settings::confdir}/skyper.yaml":
