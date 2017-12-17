@@ -10,7 +10,7 @@ class notifier::skyper (
     path                 => "${settings::confdir}/puppet.conf",
     section              => 'master',
     setting              => 'reports',
-    subsetting           => 'slack',
+    subsetting           => 'skyper',
     subsetting_separator => ','
   }
 
