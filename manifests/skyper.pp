@@ -16,8 +16,8 @@ class notifier::skyper (
 
   file { "${settings::confdir}/skyper.yaml":
     ensure  => present,
-    owner   => 'pe-puppet',
-    group   => 'pe-puppet',
+    owner   => 'root',
+    group   => 'root',
     mode    => '0644',
     content => template('notifier/slacker.yaml.erb'),
   }
