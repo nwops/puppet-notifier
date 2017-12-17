@@ -1,7 +1,7 @@
 class notifier::slacker (
   $hook_url,
   $username,
-  $icon_user,
+  $icon_url,
   $channel,
   $puppetboard = $::notifier::params::puppetboard,
 ) inherits notifier::params {
