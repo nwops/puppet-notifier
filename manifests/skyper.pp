@@ -19,8 +19,8 @@ class notifier::skyper (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template('notifier/slacker.yaml.erb'),
+    content => template('notifier/skyper.yaml.erb'),
   }
-  include notifier::service
-  Class['notifier::skyper'] ~> Class['notifier::service']
+  include notifier, notifier::service
+  Class['notifier'] -> Class['notifier::skyper'] ~> Class['notifier::service']
 }

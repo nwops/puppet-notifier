@@ -24,6 +24,6 @@ class notifier::slacker (
     mode    => '0644',
     content => template('notifier/slacker.yaml.erb')
   }
-  include notifier::service
-  Class['notifier::slacker'] ~> Class['notifier::service']
+  include notifier, notifier::service
+  Class['notifier'] -> Class['notifier::slacker'] ~> Class['notifier::service']
 }

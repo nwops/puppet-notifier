@@ -21,6 +21,6 @@ class notifier::telegramer (
     mode    => '0644',
     content => template('notifier/telegramer.yaml.erb')
   }
-  include notifier::service
-  Class['notifier::telegramer'] ~> Class['notifier::service']
+  include notifier, notifier::service
+  Class['notifier'] -> Class['notifier::telegramer'] ~> Class['notifier::service']
 }

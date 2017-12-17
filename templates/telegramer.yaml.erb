@@ -1,7 +1,9 @@
 ---
 :chat_id: <%= @chat_id %>
 :token: <%= @token %>
+<% if @send_stickers -%>
 :send_sticker: <%= @send_stickers %>
+<% end -%>
 <% if @puppetboard -%>
 :puppetboard_link: <%= @puppetboard %>
 <% end -%>

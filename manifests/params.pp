@@ -7,5 +7,5 @@ class notifier::params {
   $puppetconf_path        = '/etc/puppetlabs/puppet'
   $slack_icon_url         = undef
   $slack_username         = 'Puppet'
-  $telegram_send_stickers = true
+  $telegram_send_stickers = undef
 }
