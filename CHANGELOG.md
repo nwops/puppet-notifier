@@ -1,11 +1,11 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
 ## Release 0.1.0
 
 **Features**
-
-**Bugfixes**
-
-**Known Issues**
+  * Puppet reports to Skype, Slack & Telegram
+  * Integration with Puppetboard
+  * Send Telegram stickers with Telegram reports
+  * Pretty Slack message formatting
+**TODO**
+  * Add Bolt Tasks to send messages directly from anywhere.

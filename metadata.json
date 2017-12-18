@@ -1,10 +1,13 @@
 {
-  "name": "BohdanAstapov-notifier",
-  "version": "0.1.0",
-  "author": "BohdanAstapov",
+  "name": "slenky-notifier",
+  "version": "1.0.0",
+  "author": "Bohdan Astapov",
   "summary": "Custom report handler to send notifications to Skype, Slack and Telegram",
   "license": "Apache-2.0",
   "source": "https://github.com/slenky/puppet-notifier",
+  "project_page": "https://github.com/slenky/puppet-notifier",
+  "issues_url": "https://github.com/slenky/puppet-notifier/issues",
+  "tags": ["skype", "chat", "report", "notifications", "telegram", "slack"],
   "dependencies": [
     {
       "name": "puppetlabs/puppetserver_gem",

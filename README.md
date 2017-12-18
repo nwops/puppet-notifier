@@ -1,13 +1,5 @@
 
-# notifier
-
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://docs.puppet.com/pdk/1.0/pdk_generating_modules.html#module-contents .
-
-Below you'll find the default README template ready for some content.
-
-
-
-
+# Puppet-Notifier module
 
 
 
@@ -15,9 +7,10 @@ Below you'll find the default README template ready for some content.
 
 1. [Description](#description)
 2. [Setup - The basics of getting started with notifier](#setup)
-    * [What notifier affects](#what-notifier-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with notifier](#beginning-with-notifier)
+    * [Installation](#installation)
+    * [Skyper](#skyper)
+    * [Slacker](#slacker)
+    * [Telegramer](#telegramer)
 3. [Usage - Configuration options and additional functionality](#usage)
 4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
@@ -25,48 +18,64 @@ Below you'll find the default README template ready for some content.
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what problem it solves. This is your 30-second elevator pitch for your module. Consider including OS/Puppet version it works with.       
-
-You can give more descriptive information in a second paragraph. This paragraph should answer the questions: "What does this module *do*?" and "Why would I use it?" If your module has a range of functionality (installation, configuration, management, etc.), this is the time to mention it.
+This module allows you to send managed Puppet reports into Skype, Slack and Telegram about status changes on your infrastructure on every Puppet run. Reports would be sent for you if the status equals changed or failed.
+Integration with PuppetBoard included!
 
 ## Setup
 
-### What notifier affects **OPTIONAL**
+### Installation
+It is *vital* to install this module into core modules folder of your Puppetserver (i.e /etc/puppetlabs/code/modules)!
 
-If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
+### Skyper
 
-If there's more that they should know about, though, this is the place to mention:
+1. Create the Skype bot at [BotFramework](https://dev.botframework.com/bots). Catch the Application ID and Application secret values.
+2. Create conversation in Skype, add bot and write '/get name' in IM to gather chat ID.
 
-* Files, packages, services, or operations that the module will alter, impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
+### Slacker
 
-### Setup Requirements **OPTIONAL**
+You just need to add new webhook for your team [here](https://my.slack.com/services/new/incoming-webhook/). No additional modifications required.
+Webhook would be in format https://hooks.slack.com/services/ABC/123/QWE
 
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here. 
-  
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
+### Telegramer
 
-### Beginning with notifier  
-
-The very basic steps needed for a user to get the module up and running. This can include setup steps, if necessary, or it can be an example of the most basic use of the module.
+1. Find the @BotFather contact
+2. Write /newbot and pass through multiple questions.
+3. Get the access token from the answer.
+4. Add your new bot into channel and write something like @YOURBOT hello
+5. Open https://api.telegram.org/bot<ACCESS_TOKEN>/getUpdates and find the chat id variable.
 
 ## Usage
+Simply add the class of the service you want to use into your manifest:
+```
+$puppetboard_link = 'http://172.16.100.101/puppetboard/'
+class { 'notifier::skyper':
+  chat_id => 'somechatid@thread.skype',
+  client_id => 'someclientid',
+  puppetboard => $puppetboard_link,
+  client_secret => 'someclientsecret'
+}
+class { 'notifier::slacker':
+  hook_url => 'https://hooks.slack.com/services/ABC/123/QWE',
+  username => 'Puppet Notifier',
+  channel  => '#puppet-test',
+  puppetboard => $puppetboard_link,
+  icon_url => 'https://www.404techsupport.com/wp-content/uploads/2014/06/puppet-labs-featured.png'
+}
+class { 'notifier::telegramer':
+  token => 'your_bot_token',
+  chat_id => 'chat_id_from_api',
+  send_stickers  => 'true',
+  puppetboard => $puppetboard_link
+}
+```
 
-This section is where you describe how to customize, configure, and do the fancy stuff with your module here. It's especially helpful if you include usage examples and code samples for doing things with your module.
 
 ## Reference
 
-Users need a complete list of your module's classes, types, defined types providers, facts, and functions, along with the parameters for each. You can provide this list either via Puppet Strings code comments or as a complete list in the README Reference section.
-
-* If you are using Puppet Strings code comments, this Reference section should include Strings information so that your users know how to access your documentation.
-
-* If you are not using Puppet Strings, include a list of all of your classes, defined types, and so on, along with their parameters. Each element in this listing should include:
-
-  * The data type, if applicable.
-  * A description of what the element does.
-  * Valid values, if the data type doesn't make it obvious.
-  * Default value, if any.
+### notifier::skyper
+####
+chat_id - your conversation ID from '/get name' command
+client_id -
 
 ## Limitations
 
@@ -78,4 +87,4 @@ Since your module is awesome, other users will want to play with it. Let them kn
 
 ## Release Notes/Contributors/Etc. **Optional**
 
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header. 
+If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.
