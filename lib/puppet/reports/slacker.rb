@@ -47,7 +47,7 @@ Puppet::Reports.register_report(:slacker) do
             name: 'puppetboard_link',
             text: 'Puppetboard',
             type: 'button',
-            url: SL_SETTINGS[:puppetboard_link],
+            url: "#{SL_SETTINGS[:puppetboard_link]}/report/#{self.host}/#{self.configuration_version}",
             style: 'primary'
           }]
         }
