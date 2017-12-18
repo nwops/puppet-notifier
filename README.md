@@ -45,27 +45,31 @@ Webhook would be in format https://hooks.slack.com/services/ABC/123/QWE
 5. Open https://api.telegram.org/bot<ACCESS_TOKEN>/getUpdates and find the chat id variable.
 
 ## Usage
-Simply add the class of the service you want to use into your manifest:
+Simply add the class of the service you want to use into your manifest within Puppetserver node:
 ```
-$puppetboard_link = 'http://172.16.100.101/puppetboard/'
-class { 'notifier::skyper':
-  chat_id => 'somechatid@thread.skype',
-  client_id => 'someclientid',
-  puppetboard => $puppetboard_link,
-  client_secret => 'someclientsecret'
-}
-class { 'notifier::slacker':
-  hook_url => 'https://hooks.slack.com/services/ABC/123/QWE',
-  username => 'Puppet Notifier',
-  channel  => '#puppet-test',
-  puppetboard => $puppetboard_link,
-  icon_url => 'https://www.404techsupport.com/wp-content/uploads/2014/06/puppet-labs-featured.png'
-}
-class { 'notifier::telegramer':
-  token => 'your_bot_token',
-  chat_id => 'chat_id_from_api',
-  send_stickers  => 'true',
-  puppetboard => $puppetboard_link
+node 'puppetserver' {
+
+  $puppetboard_link = 'http://172.16.100.101/puppetboard/'
+  class { 'notifier::skyper':
+    chat_id => 'somechatid@thread.skype',
+    client_id => 'someclientid',
+    puppetboard => $puppetboard_link,
+    client_secret => 'someclientsecret'
+  }
+  class { 'notifier::slacker':
+    hook_url => 'https://hooks.slack.com/services/ABC/123/QWE',
+    username => 'Puppet Notifier',
+    channel  => '#puppet-test',
+    puppetboard => $puppetboard_link,
+    icon_url => 'https://www.404techsupport.com/wp-content/uploads/2014/06/puppet-labs-featured.png'
+  }
+  class { 'notifier::telegramer':
+    token => 'your_bot_token',
+    chat_id => 'chat_id_from_api',
+    send_stickers  => 'true',
+    puppetboard => $puppetboard_link
+  }
+
 }
 ```
 
@@ -73,18 +77,26 @@ class { 'notifier::telegramer':
 ## Reference
 
 ### notifier::skyper
-####
 chat_id - your conversation ID from '/get name' command
-client_id -
+client_id - Application ID from BotFramework
+client_secret - Application Secret
+puppetboard - Link to your Puppetboard
+
+### notifier::slacker
+hook_url - your Incoming Webhook URL
+channel - where to send reports
+username - bot name which send reports
+icon_url - small image which stands for bot avatar
+
+### notifier::telegramer
+token - access key from BotFather
+chat_id - conversation ID from API
+send_stickers - should your bot send telegram stickers with report based on his status or not. Remove this attribute to disable.
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there are Known Issues, you might want to include them under their own heading here.
+This module was tested on Puppet 5.2.0 with latest Puppetserver 5.1.4.
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.
+Feel free to create issues, PR and so on :)
