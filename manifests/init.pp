@@ -1,7 +1,10 @@
-class notifier {
+class notifier(
+  Enum['puppetserver_gem', 'puppet_gem'] $gem_provider = 'puppetserver_gem',
+
+  ) {
   package { 'mime-types':
     ensure   => '2.6.2',
-    provider => 'puppetserver_gem'
+    provider => $gem_provider
   }
   package { 'rest-client':
     ensure   => '1.8.0',
@@ -10,11 +13,11 @@ class notifier {
   }
   package { 'telegram-bot-ruby':
     ensure   => '0.8.6.1',
-    provider => 'puppetserver_gem'
+    provider => $gem_provider
   }
   package { 'slack-notifier':
     ensure   => '1.5.1',
-    provider => 'puppetserver_gem'
+    provider => $gem_provider
   }
 
   ini_setting { 'enable_reports':
