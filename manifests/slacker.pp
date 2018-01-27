@@ -11,7 +11,7 @@ class notifier::slacker (
   ini_subsetting { 'add_slacker_to_reports':
     ensure               => present,
     path                 => "${settings::confdir}/puppet.conf",
-    section              => 'master',
+    section              => 'main',
     setting              => 'reports',
     subsetting           => 'slacker',
     subsetting_separator => ','

@@ -8,7 +8,7 @@ class notifier::telegramer (
   ini_subsetting { 'add_telegramer_to_reports':
     ensure               => present,
     path                 => "${settings::confdir}/puppet.conf",
-    section              => 'master',
+    section              => 'main',
     setting              => 'reports',
     subsetting           => 'telegramer',
     subsetting_separator => ','

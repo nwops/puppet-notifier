@@ -22,7 +22,7 @@ class notifier(
 
   ini_setting { 'enable_reports':
     ensure  => present,
-    section => 'agent',
+    section => 'main',
     setting => 'report',
     value   => true,
     path    => "${settings::confdir}/puppet.conf",

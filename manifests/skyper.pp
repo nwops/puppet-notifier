@@ -8,7 +8,7 @@ class notifier::skyper (
   ini_subsetting { 'slack_report_handler':
     ensure               => present,
     path                 => "${settings::confdir}/puppet.conf",
-    section              => 'master',
+    section              => 'main',
     setting              => 'reports',
     subsetting           => 'skyper',
     subsetting_separator => ','
