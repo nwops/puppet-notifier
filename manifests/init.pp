@@ -8,7 +8,7 @@ class notifier(
   }
   package { 'rest-client':
     ensure   => '1.8.0',
-    provider => 'puppetserver_gem',
+    provider => $gem_provider,
     require  => Package['mime-types']
   }
   package { 'telegram-bot-ruby':
@@ -16,7 +16,7 @@ class notifier(
     provider => $gem_provider
   }
   package { 'slack-notifier':
-    ensure   => '1.5.1',
+    ensure   => '2.3.2',
     provider => $gem_provider
   }
 
