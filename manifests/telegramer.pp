@@ -2,13 +2,14 @@ class notifier::telegramer (
   $token,
   $chat_id,
   $puppetboard            = $::notifier::params::puppetboard,
-  $send_stickers = $::notifier::params::telegram_send_stickers
+  $send_stickers = $::notifier::params::telegram_send_stickers,
+  Enum['user', 'agent'] $puppet_conf_section = 'user',
 ) inherits notifier::params {
 
   ini_subsetting { 'add_telegramer_to_reports':
     ensure               => present,
     path                 => "${settings::confdir}/puppet.conf",
-    section              => 'main',
+    section              => $puppet_conf_section,
     setting              => 'reports',
     subsetting           => 'telegramer',
     subsetting_separator => ','

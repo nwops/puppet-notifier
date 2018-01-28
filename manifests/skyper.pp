@@ -3,12 +3,14 @@ class notifier::skyper (
   $client_id,
   $client_secret,
   $puppetboard = $::notifier::params::puppetboard,
+  Enum['user', 'agent'] $puppet_conf_section = 'user',
+
 ) inherits notifier::params {
 
   ini_subsetting { 'slack_report_handler':
     ensure               => present,
     path                 => "${settings::confdir}/puppet.conf",
-    section              => 'main',
+    section              => $puppet_conf_section,
     setting              => 'reports',
     subsetting           => 'skyper',
     subsetting_separator => ','

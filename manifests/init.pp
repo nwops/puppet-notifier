@@ -1,4 +1,5 @@
 class notifier(
+  Enum['user', 'agent'] $puppet_conf_section = 'user',
   Enum['puppetserver_gem', 'puppet_gem'] $gem_provider = 'puppetserver_gem',
 
   ) {
@@ -22,7 +23,7 @@ class notifier(
 
   ini_setting { 'enable_reports':
     ensure  => present,
-    section => 'main',
+    section => $puppet_conf_section,
     setting => 'report',
     value   => true,
     path    => "${settings::confdir}/puppet.conf",

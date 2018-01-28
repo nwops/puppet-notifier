@@ -3,6 +3,7 @@ class notifier::slacker (
   $username,
   $icon_url,
   $channel,
+  Enum['user', 'agent'] $puppet_conf_section = 'user',
   $puppetboard = $::notifier::params::puppetboard,
 ) inherits notifier::params {
   validate_re($hook_url, 'https:\/\/hooks.slack.com\/(services\/)?T.+\/B.+\/.+', 'The webhook URL is invalid')
@@ -11,7 +12,7 @@ class notifier::slacker (
   ini_subsetting { 'add_slacker_to_reports':
     ensure               => present,
     path                 => "${settings::confdir}/puppet.conf",
-    section              => 'main',
+    section              => $puppet_conf_section,
     setting              => 'reports',
     subsetting           => 'slacker',
     subsetting_separator => ','
