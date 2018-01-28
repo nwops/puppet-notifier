@@ -7,11 +7,6 @@ class notifier(
     ensure   => '2.6.2',
     provider => $gem_provider
   }
-  package { 'rest-client':
-    ensure   => '1.8.0',
-    provider => $gem_provider,
-    require  => Package['mime-types']
-  }
   package { 'telegram-bot-ruby':
     ensure   => '0.8.6.1',
     provider => $gem_provider
