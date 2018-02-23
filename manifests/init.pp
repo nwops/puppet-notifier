@@ -1,6 +1,6 @@
 class notifier(
   Enum['user', 'agent'] $puppet_conf_section = 'user',
-  Enum['puppetserver_gem', 'puppet_gem'] $gem_provider = 'puppetserver_gem',
+  Enum['puppetserver_gem', 'puppet_gem', 'gem'] $gem_provider = 'puppetserver_gem',
 
   ) {
   package { 'mime-types':
